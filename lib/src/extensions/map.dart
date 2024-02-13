@@ -38,13 +38,13 @@ extension MapStringDynamicExtension on Map<String, dynamic> {
   /// This method is meant to simplify this code:
   /// ```dart
   /// Map<String, dynamic> json = { ... };
-  /// String isoString = json['timestamp'];
-  /// DateTime? dt = DateTime.tryParse(isoString);
+  /// dynamic isoString = json['timestamp'];
+  /// DateTime dt = iso is String ? DateTime.parse(isoString) : isoString;
   /// ```
   /// Which becomes more simpler:
   /// ```dart
   /// Map<String, dynamic> json = { ... };
-  /// DateTime? dt = json.getMaybeDateTime('timestamp')
+  /// DateTime dt = json.getMaybeDateTime('timestamp')
   /// ```
   DateTime getDateTime(String key) {
     dynamic v = this[key];
@@ -53,6 +53,7 @@ extension MapStringDynamicExtension on Map<String, dynamic> {
     throw FormatException('Unable to cast value in $key to DateTime', v);
   }
 
+  /// Generates a idented JSON string.
   String get prettyJSON {
     var encoder = const JsonEncoder.withIndent("    ");
     return encoder.convert(this);

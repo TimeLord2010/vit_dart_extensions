@@ -1,7 +1,7 @@
 name: vit_dart_extensions
-description: A starting point for Dart libraries or applications.
+description: Home to useful definitions for dart extensions on basic types.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/TimeLord2010/vit_dart_extensions.git
 
 environment:
   sdk: ^3.2.6

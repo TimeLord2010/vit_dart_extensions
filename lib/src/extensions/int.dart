@@ -1,18 +1,16 @@
 import 'double.dart';
 
 extension IntExtension on int {
-  /// If converts the int (assumed to be the number of bytes), to a readable
+  /// Converts the int (assumed to be the number of bytes), to a readable
   /// string form.
   ///
-  /// `500.readableByteSize // 500 B`
-  ///
-  /// `1024.readableByteSize // 1 KB`
-  ///
-  /// `2148.readableByteSize // 2.1 KB`
-  ///
-  /// `1048576.readableByteSize // 1 MB`
-  ///
-  /// `1073741824.readableByteSize // 1GB`
+  /// ```dart
+  /// 500.readableByteSize(); // 500 B
+  /// 1024.readableByteSize(); // 1 KB
+  /// 2148.readableByteSize(); // 2.1 KB
+  /// 1048576.readableByteSize(); // 1 MB
+  /// 1073741824.readableByteSize(); // 1 GB
+  /// ```
   String readableByteSize([int decimalPlaces = 1]) {
     if (this < 0) {
       throw const FormatException('Negative numbers are not a valid byte size.');
