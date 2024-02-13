@@ -1,12 +1,10 @@
-# VIT dart extensions
-
 A Dart package providing a wide range of extension methods for various data types including int, String, DateTime, and Map. The package is designed to offer practical, easy-to-use enhancements that seamlessly integrate with your existing Dart code, facilitating more concise and readable syntax.
 
-## Extensions
+# Extensions
 
-### DateTime
+## DateTime
 
-#### formartAsReadable
+### formartAsReadable
 
 ```dart
 String formatAsReadable([bool showTime = true]);
@@ -18,9 +16,9 @@ String dateAndTime = dt.formatAsReadable(); // "30/01/2023 13:22"
 String dateOnly = dt.formatAsReadable(false); // "30/01/2023"
 ```
 
-### Directory
+## Directory
 
-#### listDirectoryFiles
+### listDirectoryFiles
 
 ```dart
 Stream<File> listDirectoryFiles({
@@ -39,9 +37,9 @@ Stream<File> files = dir.listDirectoryFiles(
 );
 ```
 
-### double
+## double
 
-#### toStringAsFixedRounded
+### toStringAsFixedRounded
 
 ```dart
 String toStringAsFixedRounded(int places);
@@ -58,9 +56,9 @@ double b = 3.14150;
 b.toStringAsFixedRounded(5); // "3.1415"
 ```
 
-### File
+## File
 
-#### getName
+### getName
 
 ```dart
 String getName([bool includeExtension = false]);
@@ -74,9 +72,9 @@ file.getName(); // 'file'
 file.getName(true); // 'file.mp3'
 ```
 
-### int
+## int
 
-#### readableByteSize
+### readableByteSize
 
 ```dart
 String readableByteSize([int decimalPlaces = 1]);
@@ -92,9 +90,9 @@ Converts the int (assumed to be the number of bytes), to a readable string form.
 1073741824.readableByteSize(); // 1 GB
 ```
 
-### List
+## List
 
-#### prettyJSON
+### prettyJSON
 
 ```dart
 String get prettyJSON
@@ -126,9 +124,40 @@ print(list.prettyJSON);
 */
 ```
 
-### Map<String, dynamic>
+### firstWhereOrNull
 
-#### getMaybeDateTime
+```dart
+T? firstWhereOrNull(bool Function(T item) filter);
+```
+
+Finds the first element in the list that satisfies the given [filter] function.
+
+Iterates through each element of the list, applying [filter] to each element.
+Returns the first element for which [filter] returns true. If no element satisfies
+the [filter], returns `null`.
+
+- Parameters:
+    - [filter]: A function that takes an item of type [T] as an argument and
+      returns a [bool]. It should return `true` for an item that matches the
+      criteria and `false` otherwise.
+
+- Returns: The first element of type [T] that satisfies the provided [filter]
+    function. Returns `null` if no element satisfies the [filter] function.
+
+Example:
+```dart
+List<String> names = ['Bob', 'Alice', 'Tom'];
+String? firstNameStartingWithA = names.firstWhereOrNull((name) => name.startsWith('A'));
+print(firstNameStartingWithA); // Output: Alice
+// If no name starts with 'A', null will be printed instead.
+```
+
+This method extends `List<T>` to provide a convenient way of finding an element
+that matches certain criteria without throwing an exception if no such element is found.
+
+## Map<String, dynamic>
+
+### getMaybeDateTime
 
 ```dart
 DateTime? getMaybeDateTime(String key);
@@ -156,7 +185,7 @@ Map<String, dynamic> json = { ... };
 DateTime? dt = json.getMaybeDateTime('timestamp')
 ```
 
-#### getDateTime
+### getDateTime
 
 ```dart
 DateTime getDateTime(String key);
@@ -182,11 +211,13 @@ Map<String, dynamic> json = { ... };
 DateTime dt = json.getMaybeDateTime('timestamp')
 ```
 
-#### prettyJSON
+### prettyJSON
 
 ```dart
 String get prettyJSON
 ```
+
+Returns a string in JSON format with identation.
 
 ```dart
 Map<String, dynamic> map = {
@@ -201,9 +232,9 @@ map.prettyJSON
 
 ```
 
-### num
+## num
 
-#### formatToBrazilian
+### formatToBrazilian
 
 ```dart
 String formatToBrazilian();
