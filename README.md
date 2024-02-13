@@ -1,39 +1,26 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# VIT dart extensions
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+A Dart package providing a wide range of extension methods for various data types including int, String, DateTime, and Map. The package is designed to offer practical, easy-to-use enhancements that seamlessly integrate with your existing Dart code, facilitating more concise and readable syntax.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## Extensions
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+### DateTime
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+#### formartAsReadable
 
 ```dart
-const like = 'sample';
+final dt = DateTime(2023, 1, 30, 13, 22);
+String dateAndTime = dt.formatAsReadable(); // "30/01/2023 13:22"
+String dateOnly = dt.formatAsReadable(false); // "30/01/2023"
 ```
 
-## Additional information
+### Directory
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+#### listDirectoryFiles
+
+This method is equivalent to `dir.listSync(recursive: true).whereType<File>();`, however, this code will fail if some directory cannot be read due to lack of permissions. This method on the other hand won't fail.
+
+```dart
+var dir = Directory('some/path');
+Stream<File> files = dir.listDirectoryFiles();
+```

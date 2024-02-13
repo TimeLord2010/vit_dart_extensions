@@ -5,8 +5,10 @@ void main() {
   group('date', () {
     test('formatAsReadable', () {
       final dt = DateTime(2022, 1, 30, 13, 22);
-      final timeOnly = dt.formatAsReadable(false);
-      expect(timeOnly, '30/01/2022');
+      final dateOnly = dt.formatAsReadable(false);
+      expect(dateOnly, '30/01/2022');
+      final dateAndTime = dt.formatAsReadable();
+      expect(dateAndTime, '30/01/2022 13:22');
     });
   });
 }
