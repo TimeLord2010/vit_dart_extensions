@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 extension StringExtension on String {
   /// Converts strings in ISO-8601 or DD/MM/(YYYY|YY)[ HH:mm] formats to a DateTime object.
   /// The returned DateTime object does not take hours, minutes, or seconds into account.
@@ -105,24 +103,5 @@ extension StringExtension on String {
     var words = split(' ').where((x) => x.isNotEmpty);
     var initials = words.map((x) => x.substring(0, 1).toUpperCase());
     return initials.take(initialsCount).join(joinString);
-  }
-}
-
-extension StringBRExtension on String {
-  /// Attempts to parse the current string as a double, assuming Brazilian number format (comma for decimal separator).
-  ///
-  /// Returns the parsed double if successful, otherwise `null`.
-  ///
-  /// ```dart
-  /// String brNumber = "1.234,56";
-  /// print(brNumber.tryParseFromBrazillianFormat()); // Outputs: 1234.56
-  /// ```
-  double? tryParseFromBrazillianFormat() {
-    try {
-      return NumberFormat('0.0', 'pt_BR').parse(this).toDouble();
-    } catch (e) {
-      // Returns null if parsing fails
-      return null;
-    }
   }
 }

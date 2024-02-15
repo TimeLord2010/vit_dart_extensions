@@ -1,13 +1,10 @@
 name: vit_dart_extensions
 description: Home to useful definitions for dart extensions on basic types.
-version: 1.2.0
+version: 1.3.0
 repository: https://github.com/TimeLord2010/vit_dart_extensions.git
 
 environment:
   sdk: ^3.2.6
-
-dependencies:
-  intl: ^0.19.0
 
 dev_dependencies:
   lints: ^3.0.0

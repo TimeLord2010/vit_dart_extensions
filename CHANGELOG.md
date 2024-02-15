@@ -1,3 +1,8 @@
+## 1.3.0
+
+- **Breaking Change**: Removed BR related extension methods to separate package. 
+- Removed `intl` dependency.
+
 ## 1.2.0
 
 - Added `getInitials` to String extensions.
