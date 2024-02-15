@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Added `getInitials` to String extensions.
+- Added missing String extensions documentation to README.md
+
 ## 1.1.0
 
 - Added `firstWhereOrNull` to List<T> extensions.

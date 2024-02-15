@@ -247,3 +247,108 @@ num a = 1234.789;
 a.formatToBrazilian(); // '1234,789'
 a.formatToBrazilian(useThousandSeparator: true); // '1.234,789'
 ```
+
+## String
+
+### toMaybeDate
+
+```dart
+DateTime? toMaybeDate();
+```
+
+Converts strings in ISO-8601 or DD/MM/(YYYY|YY)[ HH:mm] formats to a DateTime object.
+The returned DateTime object does not take hours, minutes, or seconds into account.
+
+Returns `null` if the string cannot be parsed into a valid date.
+```dart
+String isoDateString = "2022-01-01";
+String brDateString = "01/01/2022";
+print(isoDateString.toMaybeDate()); // Outputs: 2022-01-01 00:00:00.000
+print(brDateString.toMaybeDate()); // Outputs: 2022-01-01 00:00:00.000
+```
+
+### insertAt
+
+```dart
+String insertAt(int i, String value);
+```
+
+Inserts a given string [value] into the current string at the specified index [i].
+
+Returns a new string with the value inserted.
+
+```dart
+String originalString = "HelloWorld";
+print(originalString.insertAt(5, " ")); // Outputs: "Hello World"
+```
+
+### isEmail
+
+```dart
+bool get isEmail;
+```
+
+Checks if the current string is a valid email address.
+
+
+Returns `true` if the string matches the email pattern, otherwise `false`.
+
+
+```dart
+String email = "example@example.com";
+String nonEmail = "notAnEmail";
+print(email.isEmail); // Outputs: true
+print(nonEmail.isEmail); // Outputs: false
+```
+
+### getInitials
+
+```dart
+String getInitials({
+    int initialsCount = 2,
+    String joinString = '',
+});
+```
+
+Returns the initials of each word of a string.
+
+
+This function takes a string and returns its initials, up to a specified
+number of initials. By default, it returns the first two initials without
+any separator.
+
+
+Examples:
+```dart
+var name = 'John Doe';
+print(name.getInitials()); // 'JD'
+print(name.getInitials(initialsCount: 1)); // 'J'
+print(name.getInitials(joinString: '.')); // 'J.D'
+```
+
+Parameters:
+- `initialsCount` (int): The maximum number of initials to return.
+    Defaults to 2.
+- `joinString` (String): The string to use to join the initials.
+    Defaults to '' (no separator).
+
+
+Returns:
+A string containing the initials.
+
+### tryParseFromBrazillianFormat
+
+```dart
+double? tryParseFromBrazillianFormat();
+```
+
+Attempts to parse the current string as a double, assuming Brazilian number format (comma for decimal separator).
+
+
+Returns the parsed double if successful, otherwise `null`.
+
+
+```dart
+String brNumber = "1.234,56";
+print(brNumber.tryParseFromBrazillianFormat()); // Outputs: 1234.56
+```

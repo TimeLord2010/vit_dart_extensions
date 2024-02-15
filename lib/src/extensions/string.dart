@@ -73,6 +73,39 @@ extension StringExtension on String {
     final pattern = RegExp(r'^.+@.*\.[a-zA-Z]+$');
     return pattern.hasMatch(this);
   }
+
+  /// Returns the initials of each word of a string.
+  ///
+  /// This function takes a string and returns its initials, up to a specified
+  /// number of initials. By default, it returns the first two initials without
+  /// any separator.
+  ///
+  /// Examples:
+  /// ```dart
+  /// var name = 'John Doe';
+  /// print(name.getInitials()); // 'JD'
+  ///
+  /// print(name.getInitials(initialsCount: 1)); // 'J'
+  ///
+  /// print(name.getInitials(joinString: '.')); // 'J.D'
+  /// ```
+  ///
+  /// Parameters:
+  /// - `initialsCount` (int): The maximum number of initials to return.
+  ///   Defaults to 2.
+  /// - `joinString` (String): The string to use to join the initials.
+  ///   Defaults to '' (no separator).
+  ///
+  /// Returns:
+  /// A string containing the initials.
+  String getInitials({
+    int initialsCount = 2,
+    String joinString = '',
+  }) {
+    var words = split(' ').where((x) => x.isNotEmpty);
+    var initials = words.map((x) => x.substring(0, 1).toUpperCase());
+    return initials.take(initialsCount).join(joinString);
+  }
 }
 
 extension StringBRExtension on String {
