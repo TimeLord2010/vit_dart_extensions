@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Added `hasUpperCase`, `hasLowerCase`, `hasNumber`, `hasSymbol`, and `hasLengthBetween` to String extensions.
+
 ## 1.3.0
 
 - **Breaking Change**: Removed BR related extension methods to separate package. 

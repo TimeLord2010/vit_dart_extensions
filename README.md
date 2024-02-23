@@ -301,6 +301,109 @@ print(email.isEmail); // Outputs: true
 print(nonEmail.isEmail); // Outputs: false
 ```
 
+### hasUpperCase
+
+```dart
+bool get hasUpperCase;
+```
+
+Checks if the string contains at least one uppercase letter.
+
+This getter considers not only English uppercase letters but also
+uppercase accented letters commonly used in the Brazilian Portuguese
+language, such as Á, À, Â, Ã, É, Ê, Í, Ó, Ô, Õ, Ú, and Ç.
+
+Example:
+```dart
+String text1 = 'Hello world';
+print(text1.hasUpperCase); // Output: true
+
+String text2 = 'hello world';
+print(text2.hasUpperCase); // Output: false
+```
+
+### hasLowerCase
+
+```dart
+bool get hasLowerCase;
+```
+
+Checks if the string contains at least one lowercase letter.
+
+This getter considers not only English lowercase letters but also
+lowercase accented letters commonly used in the Brazilian Portuguese
+language, such as á, à, â, ã, é, ê, í, ó, ô, õ, ú, and ç.
+
+Example:
+```dart
+String text1 = 'Hello world';
+print(text1.hasLowerCase); // Output: true
+///
+String text2 = 'HELLO WORLD';
+print(text2.hasLowerCase); // Output: false
+```
+
+### hasNumber
+
+```dart
+bool get hasNumber;
+```
+
+Checks if the string contains at least one digit.
+
+Example:
+```dart
+String text1 = 'Hello123';
+print(text1.hasNumber); // Output: true
+
+String text2 = 'Hello';
+print(text2.hasNumber); // Output: false
+```
+
+### hasSymbol
+
+```dart
+bool get hasSymbol;
+```
+
+Checks if the string contains at least one special symbol.
+
+This getter looks for common special symbols such as !, @, #, $, %, ^,
+&, *, (, ), ,, ., ?, ", :, {, }, |, <, and >.
+
+Example:
+```dart
+String text1 = 'Hello@World';
+print(text1.hasSymbol); // Output: true
+
+String text2 = 'HelloWorld';
+print(text2.hasSymbol); // Output: false
+```
+
+### hasLengthBetween
+
+```dart
+bool hasLengthBetween(int min, int max)
+```
+
+Checks if the length of the string is between the specified minimum and
+maximum values, inclusive.
+
+Parameters:
+- `min`: The minimum length of the string.
+- `max`: The maximum length of the string.
+
+Returns `true` if the length of the string is within the specified range,
+otherwise returns `false`.
+
+Example:
+```dart
+String text = 'Hello';
+print(text.hasLengthBetween(3, 6)); // Output: true
+
+print(text.hasLengthBetween(6, 10)); // Output: false
+```
+
 ### getInitials
 
 ```dart
