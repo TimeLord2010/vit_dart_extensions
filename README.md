@@ -1,5 +1,18 @@
 A Dart package providing a wide range of extension methods for various data types including int, String, DateTime, and Map. The package is designed to offer practical, easy-to-use enhancements that seamlessly integrate with your existing Dart code, facilitating more concise and readable syntax.
 
+# Summary
+
+1. [Extensions](#extensions)
+    - [DateTime](#datetime)
+    - [Directory](#directory)
+    - [Duration](#duration)
+    - [double](#double)
+    - [File](#file)
+    - [int](#int)
+    - [List](#file)
+    - [Map](#mapstring-dynamic)
+    - [String](#string)
+
 # Extensions
 
 ## DateTime
@@ -35,6 +48,30 @@ Stream<File> files = dir.listDirectoryFiles(
         // Handle directory read errors.
     },
 );
+```
+
+## Duration
+
+### toReadable
+
+```dart
+String toReadable();
+```
+
+Converts the duration to a readable string format.
+
+The output is the representation of the closest greatest unit of time
+in the duration along with the second greatest unit.
+
+Examples:
+```dart
+Duration(days: 1, hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '1d 3h'
+Duration(hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '3h 23min'
+Duration(minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '23min 5s'
+Duration(seconds: 5).toReadable(); // '5s'
+Duration(seconds: 5, milliseconds: 101).toReadable(); // '5.101s'
+Duration(milliseconds: 101).toReadable(); // '0.101s'
+Duration.zero.toReadable(); // '0s'
 ```
 
 ## double
@@ -232,7 +269,7 @@ map.prettyJSON
 
 ```
 
-## num
+
 
 ### formatToBrazilian
 

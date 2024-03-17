@@ -1,3 +1,8 @@
+## 1.5.0
+
+- Added `toReadable` in Duration extensions.
+- Moved `firstWhereOrNull` from List to Iterable extensions.
+
 ## 1.4.0
 
 - Added `hasUpperCase`, `hasLowerCase`, `hasNumber`, `hasSymbol`, and `hasLengthBetween` to String extensions.

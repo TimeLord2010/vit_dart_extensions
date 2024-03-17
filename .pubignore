@@ -1,0 +1,6 @@
+test/
+build/
+coverage/
+
+.DS_Store
+.gitignore
