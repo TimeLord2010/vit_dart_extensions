@@ -55,7 +55,9 @@ Stream<File> files = dir.listDirectoryFiles(
 ### toReadable
 
 ```dart
-String toReadable();
+String toReadable({
+    bool millisecondsAsDecimal = false,
+});
 ```
 
 Converts the duration to a readable string format.
@@ -69,8 +71,8 @@ Duration(days: 1, hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadab
 Duration(hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '3h 23min'
 Duration(minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '23min 5s'
 Duration(seconds: 5).toReadable(); // '5s'
-Duration(seconds: 5, milliseconds: 101).toReadable(); // '5.101s'
-Duration(milliseconds: 101).toReadable(); // '0.101s'
+Duration(seconds: 5, milliseconds: 101).toReadable(); // '5s 101ms'
+Duration(milliseconds: 101).toReadable(); // '101ms'
 Duration.zero.toReadable(); // '0s'
 ```
 

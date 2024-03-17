@@ -10,11 +10,13 @@ extension DurationExt on Duration {
   /// Duration(hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '3h 23min'
   /// Duration(minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '23min 5s'
   /// Duration(seconds: 5).toReadable(); // '5s'
-  /// Duration(seconds: 5, milliseconds: 101).toReadable(); // '5.101s'
-  /// Duration(milliseconds: 101).toReadable(); // '0.101s'
+  /// Duration(seconds: 5, milliseconds: 101).toReadable(); // '5s 101ms'
+  /// Duration(milliseconds: 101).toReadable(); // '101ms'
   /// Duration.zero.toReadable(); // '0s'
   /// ```
-  String toReadable() {
+  String toReadable({
+    bool millisecondsAsDecimal = false,
+  }) {
     var duration = this;
     String formattedString = '';
     if (duration.inDays > 0) {
@@ -35,8 +37,24 @@ extension DurationExt on Duration {
       if (seconds > 0) {
         formattedString += '${seconds}s';
       }
-    } else if (duration.inSeconds > 0 || duration.inMilliseconds > 0) {
-      formattedString += _formatSecondsAndMilliseconds(duration);
+    } else if (duration.inSeconds > 0) {
+      if (millisecondsAsDecimal) {
+        formattedString += _formatSecondsAndMilliseconds(duration);
+      } else {
+        formattedString = '${duration.inSeconds}s ';
+        var milli = duration.inMilliseconds % 1000;
+        if (milli > 0) {
+          formattedString += '${milli}ms';
+        }
+      }
+    } else if (duration.inMilliseconds > 0) {
+      int milliseconds = duration.inMilliseconds % 1000;
+      var milliStr = milliseconds.toString().padLeft(3, '0');
+      if (millisecondsAsDecimal) {
+        return '0.${milliStr}s';
+      } else {
+        return '${milliStr}ms';
+      }
     } else {
       formattedString = '0s';
     }

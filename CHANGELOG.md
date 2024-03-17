@@ -1,3 +1,7 @@
+## 1.5.1
+
+- Added option in duration's `toReadable` to display millisecond as decimal in seconds unit.
+
 ## 1.5.0
 
 - Added `toReadable` in Duration extensions.
