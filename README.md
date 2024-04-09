@@ -9,7 +9,7 @@ A Dart package providing a wide range of extension methods for various data type
     - [double](#double)
     - [File](#file)
     - [int](#int)
-    - [Iterable] (#iterable)
+    - [Iterable](#iterable)
     - [List](#file)
     - [Map](#mapstring-dynamic)
     - [String](#string)

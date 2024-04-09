@@ -1,3 +1,7 @@
+## 1.6.1
+
+- Fixed README summary.
+
 ## 1.6.0
 
 - Added `removeIndices` on Iterable extensions.
