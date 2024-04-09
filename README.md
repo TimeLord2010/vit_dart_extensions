@@ -9,6 +9,7 @@ A Dart package providing a wide range of extension methods for various data type
     - [double](#double)
     - [File](#file)
     - [int](#int)
+    - [Iterable] (#iterable)
     - [List](#file)
     - [Map](#mapstring-dynamic)
     - [String](#string)
@@ -129,6 +130,88 @@ Converts the int (assumed to be the number of bytes), to a readable string form.
 1073741824.readableByteSize(); // 1 GB
 ```
 
+## Iterable
+
+### chunk
+
+```dart
+List<Iterable<T>> chunck(int size);
+```
+
+Divides the iterable into a list of iterables each with a maximum length of [size].
+If the original iterable's length is less than or equal to [size],
+a single chunk containing all elements will be returned.
+
+The method throws a [ArgumentError] if [size] is less than or equal to 0.
+
+Example:
+```dart
+final numbers = [1, 2, 3, 4, 5, 6];
+final chunks = numbers.chunck(2);
+print(chunks); // ([1, 2], [3, 4], [5, 6])
+```
+
+### firstWhereOrNull
+
+```dart
+T? firstWhereOrNull(bool Function(T item) filter);
+```
+
+Finds the first element in the list that satisfies the given [filter] function.
+
+Iterates through each element of the list, applying [filter] to each element.
+Returns the first element for which [filter] returns true. If no element satisfies
+the [filter], returns `null`.
+
+- Parameters:
+    - [filter]: A function that takes an item of type [T] as an argument and
+      returns a [bool]. It should return `true` for an item that matches the
+      criteria and `false` otherwise.
+
+- Returns: The first element of type [T] that satisfies the provided [filter]
+    function. Returns `null` if no element satisfies the [filter] function.
+
+Example:
+```dart
+List<String> names = ['Bob', 'Alice', 'Tom'];
+String? firstNameStartingWithA = names.firstWhereOrNull((name) => name.startsWith('A'));
+print(firstNameStartingWithA); // Output: Alice
+// If no name starts with 'A', null will be printed instead.
+```
+
+### separatedBy
+
+```dart
+List<T> separatedBy(T separator);
+```
+
+Creates a new list from the iterable by interspersing a given [separator] between each element.
+If the iterable contains less than two elements, the original iterable is returned as a list.
+
+Example:
+```dart
+final letters = ['a', 'b', 'c'];
+final spacedLetters = letters.separatedBy('-');
+print(spacedLetters); // ['a', '-', 'b', '-', 'c']
+```
+
+### removeIndices
+
+```dart
+List<T> removeIndices(Set<int> indices);
+```
+
+Removes the items in the given indexes.
+
+This function creates a new list and does not change the original
+iterable.
+
+Example:
+```dart
+Iterable<String> names = ['Bob', 'Alice', 'Tom', 'Fiona'];
+Iterable<String> filtered = names.removeIndices({1,3}); // ('Bob', 'Tom')
+```
+
 ## List
 
 ### prettyJSON
@@ -162,37 +245,6 @@ print(list.prettyJSON);
 ]
 */
 ```
-
-### firstWhereOrNull
-
-```dart
-T? firstWhereOrNull(bool Function(T item) filter);
-```
-
-Finds the first element in the list that satisfies the given [filter] function.
-
-Iterates through each element of the list, applying [filter] to each element.
-Returns the first element for which [filter] returns true. If no element satisfies
-the [filter], returns `null`.
-
-- Parameters:
-    - [filter]: A function that takes an item of type [T] as an argument and
-      returns a [bool]. It should return `true` for an item that matches the
-      criteria and `false` otherwise.
-
-- Returns: The first element of type [T] that satisfies the provided [filter]
-    function. Returns `null` if no element satisfies the [filter] function.
-
-Example:
-```dart
-List<String> names = ['Bob', 'Alice', 'Tom'];
-String? firstNameStartingWithA = names.firstWhereOrNull((name) => name.startsWith('A'));
-print(firstNameStartingWithA); // Output: Alice
-// If no name starts with 'A', null will be printed instead.
-```
-
-This method extends `List<T>` to provide a convenient way of finding an element
-that matches certain criteria without throwing an exception if no such element is found.
 
 ## Map<String, dynamic>
 
@@ -266,7 +318,7 @@ Map<String, dynamic> map = {
 map.prettyJSON
 // "{
 //   "name": "Vinícius",
-//   "enabled": true  
+//   "enabled": true
 // }"
 
 ```

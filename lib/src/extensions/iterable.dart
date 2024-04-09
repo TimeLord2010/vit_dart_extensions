@@ -60,9 +60,6 @@ extension IterableExtension<T> on Iterable<T> {
   ///   print(firstNameStartingWithA); // Output: Alice
   ///   // If no name starts with 'A', null will be printed instead.
   /// ```
-  ///
-  /// This method extends `List<T>` to provide a convenient way of finding an element
-  /// that matches certain criteria without throwing an exception if no such element is found.
   T? firstWhereOrNull(bool Function(T item) filter) {
     for (final item in this) {
       var passed = filter(item);
@@ -71,5 +68,26 @@ extension IterableExtension<T> on Iterable<T> {
       }
     }
     return null;
+  }
+
+  /// Removes the items in the given indexes.
+  ///
+  /// This function creates a new list and does not change the original
+  /// iterable.
+  ///
+  /// Example:
+  /// ```dart
+  /// Iterable<String> names = ['Bob', 'Alice', 'Tom', 'Fiona'];
+  /// Iterable<String> filtered = names.removeIndices({1,3}); // ('Bob', 'Tom')
+  /// ```
+  List<T> removeIndices(Set<int> indices) {
+    var newList = <T>[];
+    for (int i = 0; i < length; i++) {
+      if (indices.contains(i)) {
+        continue;
+      }
+      newList.add(elementAt(i));
+    }
+    return newList;
   }
 }

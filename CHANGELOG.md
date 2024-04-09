@@ -1,3 +1,7 @@
+## 1.6.0
+
+- Added `removeIndices` on Iterable extensions.
+
 ## 1.5.1
 
 - Added option in duration's `toReadable` to display millisecond as decimal in seconds unit.
@@ -13,7 +17,7 @@
 
 ## 1.3.0
 
-- **Breaking Change**: Removed BR related extension methods to separate package. 
+- **Breaking Change**: Removed BR related extension methods to separate package.
 - Removed `intl` dependency.
 
 ## 1.2.0
