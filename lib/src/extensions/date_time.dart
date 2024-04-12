@@ -34,7 +34,9 @@ extension DateTimeExt on DateTime {
     // Dividing to 1000 to prevent nextInt 32 bit limitations.
     int diff = (endEpoch - beginEpoch) ~/ 1000;
 
-    var randomEpoch = beginEpoch + Random().nextInt(diff);
+    assert(diff >= 0, '"begin" must come before "end"');
+
+    var randomEpoch = (beginEpoch ~/ 1000) + Random().nextInt(diff);
 
     // Multiplying to 1000 to fix the value.
     return DateTime.fromMillisecondsSinceEpoch(randomEpoch * 1000);

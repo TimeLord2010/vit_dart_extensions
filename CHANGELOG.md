@@ -1,3 +1,7 @@
+## 1.7.2
+
+- Fix `pickRandom` extension method of DateTime generating dates outside the desired range.
+
 ## 1.7.1
 
 - Fix `pickRandom` method from DateTime extension limitation on 32 bit int.
