@@ -30,8 +30,13 @@ extension DateTimeExt on DateTime {
     end ??= DateTime.now();
     var beginEpoch = begin.millisecondsSinceEpoch;
     var endEpoch = end.millisecondsSinceEpoch;
-    var diff = endEpoch - beginEpoch;
+
+    // Dividing to 1000 to prevent nextInt 32 bit limitations.
+    int diff = (endEpoch - beginEpoch) ~/ 1000;
+
     var randomEpoch = beginEpoch + Random().nextInt(diff);
-    return DateTime.fromMillisecondsSinceEpoch(randomEpoch);
+
+    // Multiplying to 1000 to fix the value.
+    return DateTime.fromMillisecondsSinceEpoch(randomEpoch * 1000);
   }
 }

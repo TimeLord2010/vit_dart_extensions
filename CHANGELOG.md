@@ -1,3 +1,7 @@
+## 1.7.1
+
+- Fix `pickRandom` method from DateTime extension limitation on 32 bit int.
+
 ## 1.7.0
 
 - Added `pickRandom` on Iterable extensions.
