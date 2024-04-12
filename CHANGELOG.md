@@ -1,3 +1,8 @@
+## 1.7.0
+
+- Added `pickRandom` on Iterable extensions.
+- Added static method `pickRandom` to DateTime extensions.
+
 ## 1.6.1
 
 - Fixed README summary.

@@ -1,4 +1,6 @@
-extension DateTimeExtension on DateTime {
+import 'dart:math';
+
+extension DateTimeExt on DateTime {
   /// Creates a string with one of the following formarts:
   /// - DD/MM/YYYY
   /// - DD/MM/YYYY hh:mm (24 hour format)
@@ -13,5 +15,23 @@ extension DateTimeExtension on DateTime {
       return '$day/$month/$year $hour:$minute';
     }
     return '$day/$month/$year';
+  }
+
+  /// Picks a random DateTime between two optional DateTime parameters.
+  /// If no parameters are provided, it defaults to the Unix epoch
+  /// (January 1, 1970) for the start and the current DateTime for the end.
+  ///
+  /// Example:
+  /// ```dart
+  /// var randomDt = DateTimeExt.pickRandom();
+  /// ```
+  static DateTime pickRandom([DateTime? begin, DateTime? end]) {
+    begin ??= DateTime(1970);
+    end ??= DateTime.now();
+    var beginEpoch = begin.millisecondsSinceEpoch;
+    var endEpoch = end.millisecondsSinceEpoch;
+    var diff = endEpoch - beginEpoch;
+    var randomEpoch = beginEpoch + Random().nextInt(diff);
+    return DateTime.fromMillisecondsSinceEpoch(randomEpoch);
   }
 }

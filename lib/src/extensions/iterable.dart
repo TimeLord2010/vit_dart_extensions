@@ -1,3 +1,5 @@
+import 'dart:math';
+
 extension IterableExtension<T> on Iterable<T> {
   /// Divides the iterable into a list of iterables each with a maximum length of [size].
   /// If the original iterable's length is less than or equal to [size],
@@ -68,6 +70,12 @@ extension IterableExtension<T> on Iterable<T> {
       }
     }
     return null;
+  }
+
+  /// Picks an item at a random index.
+  T pickRandom() {
+    var index = Random().nextInt(length);
+    return elementAt(index);
   }
 
   /// Removes the items in the given indexes.

@@ -30,6 +30,21 @@ String dateAndTime = dt.formatAsReadable(); // "30/01/2023 13:22"
 String dateOnly = dt.formatAsReadable(false); // "30/01/2023"
 ```
 
+### pickRandom
+
+```dart
+static DateTime pickRandom([DateTime? begin, DateTime? end]);
+```
+
+Picks a random DateTime between two optional DateTime parameters.
+If no parameters are provided, it defaults to the Unix epoch
+(January 1, 1970) for the start and the current DateTime for the end.
+
+Example:
+```dart
+var randomDt = DateTimeExt.pickRandom();
+```
+
 ## Directory
 
 ### listDirectoryFiles
@@ -193,6 +208,20 @@ Example:
 final letters = ['a', 'b', 'c'];
 final spacedLetters = letters.separatedBy('-');
 print(spacedLetters); // ['a', '-', 'b', '-', 'c']
+```
+
+### pickRandom
+
+```dart
+T pickRandom();
+```
+
+Picks an item at a random index.
+
+Example:
+```dart
+Iterable<String> names = ['Bob', 'Alice', 'Tom', 'Fiona'];
+names.pickRandom(); // 'Bob' or 'Alice' or 'Tom' or 'Fiona'
 ```
 
 ### removeIndices
