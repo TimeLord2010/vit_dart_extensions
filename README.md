@@ -559,19 +559,18 @@ Parameters:
 Returns:
 A string containing the initials.
 
-### tryParseFromBrazillianFormat
+### toTitleCase
 
 ```dart
-double? tryParseFromBrazillianFormat();
+String toTitleCase([bool Function(String word)? wordIgnorer]);
 ```
 
-Attempts to parse the current string as a double, assuming Brazilian number format (comma for decimal separator).
+Converts each word in the string to title case, where the first letter is
+capitalized and the remainder of the word is in lowercase, except for
+words specified by the [wordIgnorer] function.
 
-
-Returns the parsed double if successful, otherwise `null`.
-
-
+Example:
 ```dart
-String brNumber = "1.234,56";
-print(brNumber.tryParseFromBrazillianFormat()); // Outputs: 1234.56
+'hello world'.toTitleCase(); // 'Hello World'
+'hora de sair'.toTitleCase((word) => word == 'de'); // 'Hora de Sair'
 ```

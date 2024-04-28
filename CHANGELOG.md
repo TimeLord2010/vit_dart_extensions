@@ -1,3 +1,7 @@
+## 1.8.1
+
+- Removed non-existent method on README.
+
 ## 1.8.0
 
 - Added `toTitleCase` on String extensions.
