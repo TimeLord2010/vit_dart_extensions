@@ -1,3 +1,8 @@
+## 1.8.0
+
+- Added `toTitleCase` on String extensions.
+- `hasLengthBetween` now throws a RangeError when an invalid range is given.
+
 ## 1.7.2
 
 - Fix `pickRandom` extension method of DateTime generating dates outside the desired range.

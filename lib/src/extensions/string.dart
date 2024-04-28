@@ -190,7 +190,36 @@ extension StringExtension on String {
   /// print(text.hasLengthBetween(6, 10)); // Output: false
   /// ```
   bool hasLengthBetween(int min, int max) {
+    if (min < 0) {
+      throw RangeError.range(min, min, max);
+    }
+    if (min > max) {
+      throw RangeError.range(max, min, max);
+    }
     var len = length;
     return len >= min && len <= max;
+  }
+
+  /// Converts each word in the string to title case, where the first letter is
+  /// capitalized and the remainder of the word is in lowercase, except for
+  /// words specified by the [wordIgnorer] function.
+  ///
+  /// Example:
+  /// ```dart
+  /// 'hello world'.toTitleCase(); // 'Hello World'
+  /// 'hora de sair'.toTitleCase((word) => word == 'de'); // 'Hora de Sair'
+  /// ```
+  String toTitleCase([bool Function(String word)? wordIgnorer]) {
+    if (isEmpty) return this;
+    var words = split(RegExp(r'\s+'));
+    var ignoreFunc = wordIgnorer ?? (_) => false;
+    for (int i = 0; i < words.length; i++) {
+      var word = words[i];
+      if (ignoreFunc(word)) continue;
+      var firstLetter = word.substring(0, 1).toUpperCase();
+      var rest = word.substring(1).toLowerCase();
+      words[i] = firstLetter + rest;
+    }
+    return words.join(' ');
   }
 }
