@@ -396,7 +396,7 @@ Example:
 var map = {
   'ints': [1, 2, 3],
   'strings': ['a', 'b', 'c'],
-  'mixed': [1, '2', 3.0],
+  'mixed': [null, '2', 3.0],
   'notArray': 12,
 };
 print(map.tryGetList<int>('ints', (x) => x as int?)); // [1, 2, 3]
