@@ -1,3 +1,9 @@
+## 2.0.0
+
+- BREAKING: `getMaybeDateTime` was renamed to `tryGetDateTime` in Map extensions.
+- Added `getDouble` and `tryGetDouble` in Map extensions.
+- Added `getList` in Map extensions.
+
 ## 1.8.1
 
 - Removed non-existent method on README.

@@ -277,10 +277,10 @@ print(list.prettyJSON);
 
 ## Map<String, dynamic>
 
-### getMaybeDateTime
+### tryGetDateTime
 
 ```dart
-DateTime? getMaybeDateTime(String key);
+DateTime? tryGetDateTime(String key);
 ```
 
 Reads a value from the Map and returns it as a DateTime, if possible.
@@ -302,7 +302,7 @@ if (isoString != null) {
 Which becomes more simpler:
 ```dart
 Map<String, dynamic> json = { ... };
-DateTime? dt = json.getMaybeDateTime('timestamp')
+DateTime? dt = json.tryGetDateTime('timestamp')
 ```
 
 ### getDateTime
@@ -328,7 +328,81 @@ Which becomes more simpler:
 
 ```dart
 Map<String, dynamic> json = { ... };
-DateTime dt = json.getMaybeDateTime('timestamp')
+DateTime dt = json.getDateTime('timestamp')
+```
+
+### getDouble
+
+```dart
+double getDouble(String key);
+```
+
+Retrieves a value from the map by the provided [key] and converts it to
+a double.
+
+This method uses [tryGetDouble] to attempt conversion. If the conversion
+fails and the value is `null`, it throws a [FormatException].
+
+Example:
+```dart
+var map = {'a': 1, 'b': '2.5', 'c': 'three'};
+print(map.getDouble('a')); // 1.0
+print(map.getDouble('b')); // 2.5
+print(map.getDouble('c')); // throws FormatException
+```
+
+### tryGetDouble
+
+```dart
+double? tryGetDouble(String key);
+```
+
+Tries to retrieve a value from the map by the provided [key] and convert
+it to a double.
+
+The method checks the type of the value associated with the [key] in the
+following order:
+- If the value is already a double, it is returned as is.
+- If the value is an int, it is converted to double and returned.
+- If the value is a String, the method tries to parse it as a double.
+
+If the value cannot be converted to double, the method returns `null`.
+
+Example:
+```dart
+var map = {'a': 1, 'b': '2.5', 'c': 'three'};
+print(map.tryGetDouble('a')); // 1.0
+print(map.tryGetDouble('b')); // 2.5
+print(map.tryGetDouble('c')); // null
+```
+
+### getList
+
+```dart
+List<T> getList<T>(String key, T? Function(dynamic item) parser);
+```
+
+Tries to retrieve a value from the map by the provided [key] and convert
+it to a list of type [T].
+
+The method expects the value associated with the [key] to be a list. It
+uses the provided [parser] function to convert each item in the list to
+type [T].
+
+If the value is not a list, the method returns a empty list.
+
+Example:
+```dart
+var map = {
+  'ints': [1, 2, 3],
+  'strings': ['a', 'b', 'c'],
+  'mixed': [1, '2', 3.0],
+  'notArray': 12,
+};
+print(map.tryGetList<int>('ints', (x) => x as int?)); // [1, 2, 3]
+print(map.tryGetList<String>('strings', (x) => x as String?)); // ['a', 'b', 'c']
+print(map.tryGetList<double>('mixed', (x) => double.tryParse(x.toString()))); // [2.0, 3.0]
+print(map.getList<String>('notArray', (x) => x as String)); // []
 ```
 
 ### prettyJSON
@@ -350,22 +424,6 @@ map.prettyJSON
 //   "enabled": true
 // }"
 
-```
-
-
-
-### formatToBrazilian
-
-```dart
-String formatToBrazilian();
-```
-
-Converts a number into a string in Brazilian compatible format, optionally with a thousand separator.
-
-```dart
-num a = 1234.789;
-a.formatToBrazilian(); // '1234,789'
-a.formatToBrazilian(useThousandSeparator: true); // '1.234,789'
 ```
 
 ## String
