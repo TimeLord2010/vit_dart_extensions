@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Added `toSimple` in String extensions.
+
 ## 2.0.0
 
 - BREAKING: `getMaybeDateTime` was renamed to `tryGetDateTime` in Map extensions.

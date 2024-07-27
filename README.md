@@ -632,3 +632,21 @@ Example:
 'hello world'.toTitleCase(); // 'Hello World'
 'hora de sair'.toTitleCase((word) => word == 'de'); // 'Hora de Sair'
 ```
+
+### toSimple
+
+```dart
+String toSimple();
+```
+
+Converts a string into a form that is easy to compare to other string
+variations.
+
+This is useful for sorting lists based on a string.
+
+Here are what is done:
+- Converts all characters to lower case;
+- Remove accentuation from characters;
+
+Example:
+- "Açucar" -> "acucar"

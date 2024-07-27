@@ -222,4 +222,23 @@ extension StringExtension on String {
     }
     return words.join(' ');
   }
+
+  /// Converts a string into a form that is easy to compare to other string
+  /// variations.
+  ///
+  /// This is useful for sorting lists based on a string.
+  ///
+  /// Here are what is done:
+  /// - Converts all characters to lower case;
+  /// - Remove accentuation from characters;
+  ///
+  /// Example:
+  /// - "Açucar" -> "acucar"
+  String toSimple() {
+    var lower = toLowerCase();
+    lower = lower.replaceAll(RegExp('í|ì'), 'i');
+    lower = lower.replaceAll(RegExp('á|ã|à'), 'a');
+    lower = lower.replaceAll(RegExp('ó|õ|ò|ô'), 'o');
+    return lower.replaceAll(RegExp('ç'), 'c');
+  }
 }
