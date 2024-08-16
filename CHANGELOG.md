@@ -1,3 +1,7 @@
+## 2.2.0
+
+- Added `sortByDate`, `sortByNum` and `sortByString` in List extensions.
+
 ## 2.1.0
 
 - Added `toSimple` in String extensions.

@@ -31,4 +31,31 @@ extension ListExtension<T> on List<T> {
     var encoder = const JsonEncoder.withIndent("    ");
     return encoder.convert(this);
   }
+
+  /// Sorts the list by the given date of each item.
+  void sortByDate(DateTime Function(T item) getter, [bool asc = true]) {
+    if (asc) {
+      sort((a, b) => getter(a).compareTo(getter(b)));
+    } else {
+      sort((a, b) => getter(b).compareTo(getter(a)));
+    }
+  }
+
+  /// Sorts the list by the given number of each item.
+  void sortByNum(num Function(T item) getter, [bool asc = true]) {
+    if (asc) {
+      sort((a, b) => getter(a).compareTo(getter(b)));
+    } else {
+      sort((a, b) => getter(b).compareTo(getter(a)));
+    }
+  }
+
+  /// Sorts the list by the given string of each item.
+  void sortByString(String Function(T item) getter, [bool asc = true]) {
+    if (asc) {
+      sort((a, b) => getter(a).compareTo(getter(b)));
+    } else {
+      sort((a, b) => getter(b).compareTo(getter(a)));
+    }
+  }
 }

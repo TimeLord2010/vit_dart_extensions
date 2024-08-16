@@ -275,6 +275,30 @@ print(list.prettyJSON);
 */
 ```
 
+### sortByDate
+
+```dart
+void sortByDate(DateTime Function(T item) getter, [bool asc = true]);
+```
+
+Sorts the list by the given date of each item.
+
+### sortByNum
+
+```dart
+void sortByNum(num Function(T item) getter, [bool asc = true]);
+```
+
+Sorts the list by the given number of each item.
+
+### sortByString
+
+```dart
+void sortByString(String Function(T item) getter, [bool asc = true]);
+```
+
+Sorts the list by the given string of each item.
+
 ## Map<String, dynamic>
 
 ### tryGetDateTime
