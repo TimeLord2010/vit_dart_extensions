@@ -291,6 +291,22 @@ void sortByNum(num Function(T item) getter, [bool asc = true]);
 
 Sorts the list by the given number of each item.
 
+### sortByNumericString
+
+```dart
+void sortByNumericString(
+    String Function(T item) getter, {
+    bool asc = true,
+    bool appendNonNumbersAtEnd = true,
+});
+```
+
+Sorts the list assuming the extracted string is a number.
+
+If [appendNonNumbersAtEnd] is `true`, then the items that are not a valid
+number are appended at the end of the numberic items. Otherwise, they
+are inserted at the begining of the list.
+
 ### sortByString
 
 ```dart
