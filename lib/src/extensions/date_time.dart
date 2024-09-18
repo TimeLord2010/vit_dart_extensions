@@ -41,4 +41,16 @@ extension DateTimeExt on DateTime {
     // Multiplying to 1000 to fix the value.
     return DateTime.fromMillisecondsSinceEpoch(randomEpoch * 1000);
   }
+
+  /// Parses a string in European date format (DD/MM/YYYY).
+  static DateTime fromEuropean(String value) {
+    var parts = value.split('/');
+    if (parts.length != 3) {
+      throw FormatException('Invalid date format');
+    }
+    int day = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int year = int.parse(parts[2]);
+    return DateTime(year, month, day);
+  }
 }

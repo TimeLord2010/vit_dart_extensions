@@ -1,3 +1,7 @@
+## 2.4.0
+
+- Added `fromEuropean` in DateTime extensions.
+
 ## 2.3.0
 
 - Added `sortByNumericString` in List extensions.

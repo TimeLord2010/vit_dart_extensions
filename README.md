@@ -30,6 +30,14 @@ String dateAndTime = dt.formatAsReadable(); // "30/01/2023 13:22"
 String dateOnly = dt.formatAsReadable(false); // "30/01/2023"
 ```
 
+### fromEuropean
+
+```dart
+static DateTime fromEuropean(String value);
+```
+
+Parses a string in European date format (DD/MM/YYYY).
+
 ### pickRandom
 
 ```dart
