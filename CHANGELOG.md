@@ -1,3 +1,7 @@
+## 2.5.0
+
+- Added `count` in String extensions.
+
 ## 2.4.0
 
 - Added `fromEuropean` in DateTime extensions.

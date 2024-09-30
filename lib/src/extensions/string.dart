@@ -34,7 +34,8 @@ extension StringExtension on String {
     }
 
     // Validates the date components
-    if (year == null || month == null || day == null || month > 12 || day > 31) return null;
+    if (year == null || month == null || day == null || month > 12 || day > 31)
+      return null;
     // Adjusts for two-digit years
     if (year < 100) year += 2000;
 
@@ -240,5 +241,11 @@ extension StringExtension on String {
     lower = lower.replaceAll(RegExp('á|ã|à'), 'a');
     lower = lower.replaceAll(RegExp('ó|õ|ò|ô'), 'o');
     return lower.replaceAll(RegExp('ç'), 'c');
+  }
+
+  /// Counts the occurence of a input pattern.
+  int count(Pattern search) {
+    var parts = split(search);
+    return parts.length - 1;
   }
 }

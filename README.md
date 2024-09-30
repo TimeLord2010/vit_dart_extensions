@@ -476,6 +476,14 @@ map.prettyJSON
 
 ## String
 
+## count
+
+```dart
+int count(Pattern search);
+```
+
+Counts the occurence of a input pattern.
+
 ### toMaybeDate
 
 ```dart
