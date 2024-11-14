@@ -1,3 +1,7 @@
+## 2.6.1
+
+- Fixed `addMonths`.
+
 ## 2.6.0
 
 - Added `addMonths` to DateTime extensions.

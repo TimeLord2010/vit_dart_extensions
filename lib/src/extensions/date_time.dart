@@ -87,26 +87,23 @@ extension DateTimeExt on DateTime {
     int months, {
     bool preserveMonth = true,
   }) {
-    int newYear = year + ((month + months - 1) ~/ 12);
-    int newMonth = (month + months) % 12;
+    int totalMonths = month + months;
+    int newYear = year + (totalMonths ~/ 12);
+    int newMonth = totalMonths % 12;
 
     if (newMonth <= 0) {
       newMonth += 12;
       newYear -= 1;
     }
 
-    // Determine correct day by clamping the day to the end of the new month
     int newDay = day;
     while (true) {
-      try {
-        var result = DateTime(newYear, newMonth, newDay);
-        if (preserveMonth && newMonth != result.month) {
-          throw StateError('Not in the expected month');
-        }
-        return result;
-      } catch (e) {
-        // Adjust day until a valid date is found
+      var result = DateTime(newYear, newMonth, newDay);
+
+      if (preserveMonth && newMonth != result.month) {
         newDay -= 1;
+      } else {
+        return result;
       }
     }
   }

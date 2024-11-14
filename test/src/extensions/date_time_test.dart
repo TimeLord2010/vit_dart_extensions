@@ -13,9 +13,12 @@ void main() {
   });
 
   group('addMonth', () {
-    test('to date with day 1', () {
+    test('Simple addition', () {
       expect(DateTime(2020, 1, 1).addMonths(1), DateTime(2020, 2, 1));
       expect(DateTime(2020, 1, 1).addMonths(2), DateTime(2020, 3, 1));
+      expect(DateTime(2020, 12, 1).addMonths(1), DateTime(2021, 1, 1));
+      expect(DateTime(2024, 11, 14).addMonths(1), DateTime(2024, 12, 14));
+      expect(DateTime(2024, 11, 14).addMonths(2), DateTime(2025, 1, 14));
     });
     test('to month with non existent day of the original', () {
       expect(DateTime(2020, 1, 31).addMonths(1), DateTime(2020, 2, 29));
