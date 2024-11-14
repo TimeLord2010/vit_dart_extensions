@@ -53,4 +53,61 @@ extension DateTimeExt on DateTime {
     int year = int.parse(parts[2]);
     return DateTime(year, month, day);
   }
+
+  /// Adds or subtracts a specified number of months to/from the current date.
+  ///
+  /// [months] is the number of months to adjust. Positive values add months,
+  /// while negative values subtract months.
+  ///
+  /// If [preserveMonth] is set to `true`, the method ensures that the resulting
+  /// date remains within the expected month after the adjustment. If the original
+  /// day does not exist in the resulting month, the date is adjusted to the last
+  /// valid day of that month.
+  ///
+  /// If [preserveMonth] is set to `false`, the day overflow will continue into
+  /// the next month. For example, adding 1 month to January 31 will result in
+  /// March 3 (assuming it's not a leap year, because February has 28 days).
+  ///
+  /// Examples:
+  /// ```dart
+  /// DateTime(2020, 1, 31).addMonths(1)
+  /// // Returns: DateTime(2020, 2, 29) - Adjusts to the last valid day of February in a leap year.
+  ///
+  /// DateTime(2020, 1, 31).addMonths(1, preserveMonth: false)
+  /// // Returns: DateTime(2020, 3, 2) - Allows day overflow into March.
+  ///
+  /// DateTime(2020, 1, 31).addMonths(-1)
+  /// // Returns: DateTime(2019, 12, 31) - Adjusts to December 31.
+  ///
+  /// DateTime(2020, 1, 31).addMonths(-1, preserveMonth: false)
+  /// // Returns: DateTime(2019, 12, 31) - Since December has 31 days, no overflow occurs. ///
+  /// ```
+  /// Returns a [DateTime] object representing the adjusted date.
+  DateTime addMonths(
+    int months, {
+    bool preserveMonth = true,
+  }) {
+    int newYear = year + ((month + months - 1) ~/ 12);
+    int newMonth = (month + months) % 12;
+
+    if (newMonth <= 0) {
+      newMonth += 12;
+      newYear -= 1;
+    }
+
+    // Determine correct day by clamping the day to the end of the new month
+    int newDay = day;
+    while (true) {
+      try {
+        var result = DateTime(newYear, newMonth, newDay);
+        if (preserveMonth && newMonth != result.month) {
+          throw StateError('Not in the expected month');
+        }
+        return result;
+      } catch (e) {
+        // Adjust day until a valid date is found
+        newDay -= 1;
+      }
+    }
+  }
 }

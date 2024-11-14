@@ -99,3 +99,19 @@ extension IterableExtension<T> on Iterable<T> {
     return newList;
   }
 }
+
+extension IterableNumExtension<T extends num> on Iterable<T> {
+  T sum() {
+    T acc;
+    if (T == double) {
+      acc = 0.0 as T;
+    } else {
+      acc = 0 as T;
+    }
+
+    for (var value in this) {
+      acc = acc + value as T;
+    }
+    return acc;
+  }
+}

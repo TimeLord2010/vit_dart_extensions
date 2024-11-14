@@ -1,3 +1,8 @@
+## 2.6.0
+
+- Added `addMonths` to DateTime extensions.
+- Added `sum` to Iterable of num.
+
 ## 2.5.0
 
 - Added `count` in String extensions.
