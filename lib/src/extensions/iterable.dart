@@ -98,6 +98,8 @@ extension IterableExtension<T> on Iterable<T> {
     }
     return newList;
   }
+
+  int count(bool Function(T x) filter) => this.where(filter).length;
 }
 
 extension IterableNumExtension<T extends num> on Iterable<T> {

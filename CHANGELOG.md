@@ -1,3 +1,7 @@
+## 2.7.0
+
+- Added `count` to Iterable extensions.
+
 ## 2.6.1
 
 - Fixed `addMonths`.
