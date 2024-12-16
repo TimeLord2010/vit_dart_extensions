@@ -240,6 +240,7 @@ extension StringExtension on String {
     lower = lower.replaceAll(RegExp('í|ì'), 'i');
     lower = lower.replaceAll(RegExp('á|ã|à'), 'a');
     lower = lower.replaceAll(RegExp('ó|õ|ò|ô'), 'o');
+    lower = lower.replaceAll(RegExp('é|è|ê'), 'e');
     return lower.replaceAll(RegExp('ç'), 'c');
   }
 

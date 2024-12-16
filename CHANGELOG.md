@@ -1,3 +1,7 @@
+## 2.7.1
+
+- Fix: `String.toSimple` now replaced "e" variations.
+
 ## 2.7.0
 
 - Added `count` to Iterable extensions.
