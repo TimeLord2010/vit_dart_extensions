@@ -1,3 +1,5 @@
+import 'package:vit_dart_extensions/src/data/enums/time_unit.dart';
+
 extension DurationExt on Duration {
   /// Converts the duration to a readable string format.
   ///
@@ -16,59 +18,99 @@ extension DurationExt on Duration {
   /// ```
   String toReadable({
     bool millisecondsAsDecimal = false,
+    int? maxUnits = 2,
+    Map<TimeUnit, String>? unitNames,
   }) {
     var duration = this;
-    String formattedString = '';
+    var units = <String>[];
+
+    void addUnit(dynamic value, String unit) {
+      assert(value is int || value is String);
+      if (unitNames == null) {
+        units.add('$value$unit');
+        return;
+      }
+      var realUnit = unitNames[TimeUnit.fromString(unit)] ?? unit;
+      units.add('$value$realUnit');
+    }
+
+    // Days
     if (duration.inDays > 0) {
-      formattedString += '${duration.inDays}d ';
-      int hours = duration.inHours % 24;
-      if (hours > 0) {
-        formattedString += '${hours}h';
-      }
-    } else if (duration.inHours > 0) {
-      formattedString += '${duration.inHours}h ';
-      int minutes = duration.inMinutes % 60;
-      if (minutes > 0) {
-        formattedString += '${minutes}min';
-      }
-    } else if (duration.inMinutes > 0) {
-      formattedString += '${duration.inMinutes}min ';
-      int seconds = duration.inSeconds % 60;
-      if (seconds > 0) {
-        formattedString += '${seconds}s';
-      }
-    } else if (duration.inSeconds > 0) {
+      addUnit(duration.inDays, 'd');
+      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      duration -= Duration(days: duration.inDays);
+    }
+
+    // Hours
+    if (duration.inHours > 0) {
+      addUnit(duration.inHours, 'h');
+      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      duration -= Duration(hours: duration.inHours);
+    }
+
+    // Minutes
+    if (duration.inMinutes > 0) {
+      addUnit(duration.inMinutes, 'min');
+      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      duration -= Duration(minutes: duration.inMinutes);
+    }
+
+    // Seconds
+    if (duration.inSeconds > 0) {
       if (millisecondsAsDecimal) {
-        formattedString += _formatSecondsAndMilliseconds(duration);
+        addUnit(_formatSecAndMilli(duration), 's');
+        return units.join(' ');
       } else {
-        formattedString = '${duration.inSeconds}s ';
-        var milli = duration.inMilliseconds % 1000;
-        if (milli > 0) {
-          formattedString += '${milli}ms';
+        addUnit(duration.inSeconds, 's');
+        if (maxUnits != null && units.length >= maxUnits) {
+          return units.join(' ');
         }
+        duration -= Duration(seconds: duration.inSeconds);
       }
-    } else if (duration.inMilliseconds > 0) {
+    }
+
+    if (duration.inMilliseconds > 0) {
       int milliseconds = duration.inMilliseconds % 1000;
       var milliStr = milliseconds.toString().padLeft(3, '0');
       if (millisecondsAsDecimal) {
-        return '0.${milliStr}s';
+        addUnit('0.$milliStr', 's');
+        if (maxUnits != null && units.length >= maxUnits) {
+          return units.join(' ');
+        }
       } else {
-        return '${milliStr}ms';
+        addUnit(milliStr, 'ms');
+        if (maxUnits != null && units.length >= maxUnits) {
+          return units.join(' ');
+        }
       }
     } else {
-      formattedString = '0s';
+      if (units.isEmpty) {
+        addUnit(0, 's');
+      }
     }
 
-    return formattedString.trim();
+    return units.join(' ');
   }
 }
 
-String _formatSecondsAndMilliseconds(Duration duration) {
+/// Considers the milliseconds of a duration and format it as a decimal
+/// with the unit being second.
+///
+/// Example:
+/// ```dart
+/// _formatSecAndMilli(Duration(seconds: 5, milliseconds: 101)); // '5.101'
+/// ```
+///
+/// Example:
+/// ```dart
+/// _formatSecAndMilli(Duration(seconds: 5, milliseconds: 0)); // '5'
+/// ```
+String _formatSecAndMilli(Duration duration) {
   int seconds = duration.inSeconds % 60;
   int milliseconds = duration.inMilliseconds % 1000;
   if (milliseconds > 0) {
-    return '$seconds.${milliseconds.toString().padLeft(3, '0')}s';
+    return '$seconds.${milliseconds.toString().padLeft(3, '0')}';
   } else {
-    return '${seconds}s';
+    return '$seconds';
   }
 }

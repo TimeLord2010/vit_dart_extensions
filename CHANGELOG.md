@@ -1,3 +1,7 @@
+## 2.8.0
+
+- Feat: `Duration.toReadable` now has "maxUnits" and "unitNames".
+
 ## 2.7.1
 
 - Fix: `String.toSimple` now replaced "e" variations.
