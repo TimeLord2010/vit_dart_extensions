@@ -1,3 +1,7 @@
+## 2.8.1
+
+- Fix: `Duration.toReadable` now has adjancy check for time units. Meaning strings like "2d 26s" won't be generated anymore.
+
 ## 2.8.0
 
 - Feat: `Duration.toReadable` now has "maxUnits" and "unitNames".
