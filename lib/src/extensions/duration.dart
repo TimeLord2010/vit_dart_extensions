@@ -8,13 +8,10 @@ extension DurationExt on Duration {
   ///
   /// Examples:
   /// ```dart
-  /// Duration(days: 1, hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '1d 3h'
-  /// Duration(hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '3h 23min'
-  /// Duration(minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '23min 5s'
-  /// Duration(seconds: 5).toReadable(); // '5s'
-  /// Duration(seconds: 5, milliseconds: 101).toReadable(); // '5s 101ms'
-  /// Duration(milliseconds: 101).toReadable(); // '101ms'
-  /// Duration.zero.toReadable(); // '0s'
+  /// Duration(days: 1).toReadable(); // '1d'.
+  /// Duration(hours: 3, minutes: 23, seconds: 5).toReadable(); // '3h 23min'.
+  /// Duration(minutes: 23, seconds: 5, milliseconds: 101).toReadable(maxUnits: 3); // '23min 5s 101ms'.
+  /// Duration(seconds: 5, milliseconds: 101).toReadable(millisecondsAsDecimal: true); // '5.101s'.
   /// ```
   String toReadable({
     bool millisecondsAsDecimal = false,
@@ -22,48 +19,61 @@ extension DurationExt on Duration {
     Map<TimeUnit, String>? unitNames,
   }) {
     var duration = this;
-    var units = <String>[];
+    var units = <(String, TimeUnit)>[];
 
-    void addUnit(dynamic value, String unit) {
+    void addUnit(dynamic value, TimeUnit unit) {
       assert(value is int || value is String);
-      if (unitNames == null) {
-        units.add('$value$unit');
-        return;
+      if (units.isNotEmpty) {
+        var (_, lastUnit) = units.last;
+        if (!lastUnit.isAdjacent(unit)) {
+          return;
+        }
       }
-      var realUnit = unitNames[TimeUnit.fromString(unit)] ?? unit;
-      units.add('$value$realUnit');
+      units.add(('$value', unit));
+    }
+
+    String generateResult() {
+      var parts = units.map((item) {
+        var (value, unit) = item;
+        if (unitNames == null) {
+          return '$value${unit.toShortString()}';
+        }
+        var realUnit = unitNames[unit] ?? unit.toShortString();
+        return '$value$realUnit';
+      });
+      return parts.join(' ');
     }
 
     // Days
     if (duration.inDays > 0) {
-      addUnit(duration.inDays, 'd');
-      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      addUnit(duration.inDays, TimeUnit.day);
+      if (maxUnits != null && units.length >= maxUnits) return generateResult();
       duration -= Duration(days: duration.inDays);
     }
 
     // Hours
     if (duration.inHours > 0) {
-      addUnit(duration.inHours, 'h');
-      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      addUnit(duration.inHours, TimeUnit.hour);
+      if (maxUnits != null && units.length >= maxUnits) return generateResult();
       duration -= Duration(hours: duration.inHours);
     }
 
     // Minutes
     if (duration.inMinutes > 0) {
-      addUnit(duration.inMinutes, 'min');
-      if (maxUnits != null && units.length >= maxUnits) return units.join(' ');
+      addUnit(duration.inMinutes, TimeUnit.minute);
+      if (maxUnits != null && units.length >= maxUnits) return generateResult();
       duration -= Duration(minutes: duration.inMinutes);
     }
 
     // Seconds
     if (duration.inSeconds > 0) {
       if (millisecondsAsDecimal) {
-        addUnit(_formatSecAndMilli(duration), 's');
-        return units.join(' ');
+        addUnit(_formatSecAndMilli(duration), TimeUnit.second);
+        return generateResult();
       } else {
-        addUnit(duration.inSeconds, 's');
+        addUnit(duration.inSeconds, TimeUnit.second);
         if (maxUnits != null && units.length >= maxUnits) {
-          return units.join(' ');
+          return generateResult();
         }
         duration -= Duration(seconds: duration.inSeconds);
       }
@@ -73,23 +83,23 @@ extension DurationExt on Duration {
       int milliseconds = duration.inMilliseconds % 1000;
       var milliStr = milliseconds.toString().padLeft(3, '0');
       if (millisecondsAsDecimal) {
-        addUnit('0.$milliStr', 's');
+        addUnit('0.$milliStr', TimeUnit.second);
         if (maxUnits != null && units.length >= maxUnits) {
-          return units.join(' ');
+          return generateResult();
         }
       } else {
-        addUnit(milliStr, 'ms');
+        addUnit(milliStr, TimeUnit.millisecond);
         if (maxUnits != null && units.length >= maxUnits) {
-          return units.join(' ');
+          return generateResult();
         }
       }
     } else {
       if (units.isEmpty) {
-        addUnit(0, 's');
+        addUnit(0, TimeUnit.second);
       }
     }
 
-    return units.join(' ');
+    return generateResult();
   }
 }
 

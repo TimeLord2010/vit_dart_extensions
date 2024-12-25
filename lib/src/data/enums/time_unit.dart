@@ -25,4 +25,20 @@ enum TimeUnit {
       _ => millisecond,
     };
   }
+
+  String toShortString() {
+    return switch (this) {
+      millisecond => 'ms',
+      second => 's',
+      minute => 'min',
+      hour => 'h',
+      day => 'd',
+      month => 'month',
+      year => 'year',
+    };
+  }
+
+  bool isAdjacent(TimeUnit other) {
+    return (index - other.index).abs() == 1;
+  }
 }

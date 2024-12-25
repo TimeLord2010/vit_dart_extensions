@@ -89,6 +89,15 @@ void main() {
           '1h 32min',
         );
       });
+      test('Hour and second', () {
+        expect(
+          Duration(
+            hours: 3,
+            seconds: 5,
+          ).toReadable(),
+          '3h',
+        );
+      });
       test('Minute', () {
         expect(Duration(minutes: 23).toReadable(), '23min');
       });
@@ -144,6 +153,23 @@ void main() {
             '23minutes 5sec 101milli',
           );
         });
+      });
+      test('Minute and millisecond', () {
+        expect(
+          Duration(
+            minutes: 23,
+            milliseconds: 101,
+          ).toReadable(),
+          '23min',
+        );
+
+        expect(
+          Duration(
+            minutes: 23,
+            milliseconds: 950,
+          ).toReadable(),
+          '23min',
+        );
       });
       test('Second', () {
         expect(Duration(seconds: 5).toReadable(), '5s');
