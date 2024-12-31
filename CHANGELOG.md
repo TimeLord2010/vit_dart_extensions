@@ -1,3 +1,8 @@
+## 2.9.0
+
+- Feat: `Iterable.pickNRandom`.
+- Feat: `Iterable.pickRandom` now has "exclude" and "excludeItems" options.
+
 ## 2.8.1
 
 - Fix: `Duration.toReadable` now has adjancy check for time units. Meaning strings like "2d 26s" won't be generated anymore.

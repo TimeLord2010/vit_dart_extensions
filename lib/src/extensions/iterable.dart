@@ -73,9 +73,50 @@ extension IterableExtension<T> on Iterable<T> {
   }
 
   /// Picks an item at a random index.
-  T pickRandom() {
+  ///
+  /// If [exclude] is provided, it will exclude items that satisfy the given.
+  ///
+  /// If [excludeItems] is provided, it will exclude the items in the list.
+  ///
+  /// Throws an [ArgumentError] if all items are excluded.
+  T pickRandom({
+    bool Function(T item)? exclude,
+    Iterable<T>? excludeItems,
+  }) {
+    if (exclude != null) {
+      var filtered = where((item) => !exclude(item)).toList();
+      if (filtered.isEmpty) {
+        throw ArgumentError('All items are excluded');
+      }
+      return filtered.pickRandom(
+        excludeItems: excludeItems,
+      );
+    }
+
+    if (excludeItems != null) {
+      var filtered = where((item) => !excludeItems.contains(item)).toList();
+      if (filtered.isEmpty) {
+        throw ArgumentError('All items are excluded');
+      }
+      return filtered.pickRandom();
+    }
+
     var index = Random().nextInt(length);
     return elementAt(index);
+  }
+
+  List<T> pickNRandom(int count) {
+    var selected = <T>[];
+    for (int i = 0; i < count; i++) {
+      try {
+        var item = pickRandom(excludeItems: selected);
+        selected.add(item);
+      } on ArgumentError {
+        // When all items are excluded, we break the loop.
+        break;
+      }
+    }
+    return selected;
   }
 
   /// Removes the items in the given indexes.
@@ -99,7 +140,7 @@ extension IterableExtension<T> on Iterable<T> {
     return newList;
   }
 
-  int count(bool Function(T x) filter) => this.where(filter).length;
+  int count(bool Function(T x) filter) => where(filter).length;
 }
 
 extension IterableNumExtension<T extends num> on Iterable<T> {
