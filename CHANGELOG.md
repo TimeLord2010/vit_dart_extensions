@@ -1,3 +1,8 @@
+## 3.0.0
+
+- BREAKING: `Iterable.sum` is now a getter instead of a method.
+- Feat: `Iterable.avg` getter.
+
 ## 2.9.0
 
 - Feat: `Iterable.pickNRandom`.

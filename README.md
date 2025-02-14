@@ -155,6 +155,16 @@ Converts the int (assumed to be the number of bytes), to a readable string form.
 
 ## Iterable
 
+### avg
+```dart
+double get avg;
+```
+
+Computes the average of all elements in the iterable.
+
+If the iterable is empty, the average is 0. Otherwise, it is calculated as the
+sum of the elements divided by the number of elements.
+
 ### chunk
 
 ```dart

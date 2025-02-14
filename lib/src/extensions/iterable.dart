@@ -144,7 +144,7 @@ extension IterableExtension<T> on Iterable<T> {
 }
 
 extension IterableNumExtension<T extends num> on Iterable<T> {
-  T sum() {
+  T get sum {
     T acc;
     if (T == double) {
       acc = 0.0 as T;
@@ -156,5 +156,14 @@ extension IterableNumExtension<T extends num> on Iterable<T> {
       acc = acc + value as T;
     }
     return acc;
+  }
+
+  /// Computes the average of all elements in the iterable.
+  ///
+  /// If the iterable is empty, the average is 0. Otherwise, it is calculated as the
+  /// sum of the elements divided by the number of elements.
+  double get avg {
+    if (isEmpty) return 0;
+    return sum / length;
   }
 }
