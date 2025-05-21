@@ -1,3 +1,8 @@
+# 3.0.1
+
+- Fix: `String.toSimple` now correctly normalizes and removes accent marks from characters such as "â" and "î".
+
+
 ## 3.0.0
 
 - BREAKING: `Iterable.sum` is now a getter instead of a method.

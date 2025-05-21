@@ -34,8 +34,13 @@ extension StringExtension on String {
     }
 
     // Validates the date components
-    if (year == null || month == null || day == null || month > 12 || day > 31)
+    if (year == null ||
+        month == null ||
+        day == null ||
+        month > 12 ||
+        day > 31) {
       return null;
+    }
     // Adjusts for two-digit years
     if (year < 100) year += 2000;
 
@@ -237,8 +242,8 @@ extension StringExtension on String {
   /// - "Açucar" -> "acucar"
   String toSimple() {
     var lower = toLowerCase();
-    lower = lower.replaceAll(RegExp('í|ì'), 'i');
-    lower = lower.replaceAll(RegExp('á|ã|à'), 'a');
+    lower = lower.replaceAll(RegExp('í|ì|î'), 'i');
+    lower = lower.replaceAll(RegExp('á|ã|à|â'), 'a');
     lower = lower.replaceAll(RegExp('ó|õ|ò|ô'), 'o');
     lower = lower.replaceAll(RegExp('é|è|ê'), 'e');
     return lower.replaceAll(RegExp('ç'), 'c');
