@@ -53,6 +53,23 @@ Example:
 var randomDt = DateTimeExt.pickRandom();
 ```
 
+### isToday
+
+```dart
+bool get isToday;
+```
+
+Checks if the current DateTime instance represents today's date.
+
+Returns `true` if the DateTime's year, month, and day exactly match the current date, otherwise returns `false`.
+
+Example:
+```dart
+DateTime.now().isToday; // Always returns true
+DateTime(2023, 7, 25).isToday; // Returns true if today is July 25, 2023
+DateTime(2023, 7, 24).isToday; // Returns false
+```
+
 ## Directory
 
 ### listDirectoryFiles

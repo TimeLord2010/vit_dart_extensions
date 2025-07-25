@@ -107,4 +107,20 @@ extension DateTimeExt on DateTime {
       }
     }
   }
+
+  /// Checks if the current DateTime instance represents today's date.
+  ///
+  /// Returns `true` if the DateTime's year, month, and day exactly match
+  /// the current date, otherwise returns `false`.
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime.now().isToday; // Always returns true
+  /// DateTime(2023, 7, 25).isToday; // Returns true if today is July 25, 2023
+  /// DateTime(2023, 7, 24).isToday; // Returns false
+  /// ```
+  bool get isToday {
+    var now = DateTime.now();
+    return year == now.year && month == now.month && day == now.day;
+  }
 }
