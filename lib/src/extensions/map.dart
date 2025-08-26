@@ -127,9 +127,9 @@ extension MapStringDynamicExtension on Map<String, dynamic> {
   ///   'mixed': [null, '2', 3.0],
   ///   'notArray': 12,
   /// };
-  /// print(map.tryGetList<int>('ints', (x) => x as int?)); // [1, 2, 3]
-  /// print(map.tryGetList<String>('strings', (x) => x as String?)); // ['a', 'b', 'c']
-  /// print(map.tryGetList<double>('mixed', (x) => double.tryParse(x.toString()))); // [2.0, 3.0]
+  /// print(map.getList<int>('ints', (x) => x as int?)); // [1, 2, 3]
+  /// print(map.getList<String>('strings', (x) => x as String?)); // ['a', 'b', 'c']
+  /// print(map.getList<double>('mixed', (x) => double.tryParse(x.toString()))); // [2.0, 3.0]
   /// print(map.getList<String>('notArray', (x) => x as String)); // []
   /// ```
   List<T> getList<T>(String key, T? Function(dynamic item) parser) {

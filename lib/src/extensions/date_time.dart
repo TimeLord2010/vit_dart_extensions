@@ -42,9 +42,9 @@ extension DateTimeExt on DateTime {
     return DateTime.fromMillisecondsSinceEpoch(randomEpoch * 1000);
   }
 
-  /// Parses a string in European date format (DD/MM/YYYY).
-  static DateTime fromEuropean(String value) {
-    var parts = value.split('/');
+  /// Parses a string in DD/MM/YYYY date format.
+  static DateTime fromDDMMYYYY(String value) {
+    var parts = value.split('/').map((x) => x.trim()).toList();
     if (parts.length != 3) {
       throw FormatException('Invalid date format');
     }
@@ -122,5 +122,26 @@ extension DateTimeExt on DateTime {
   bool get isToday {
     var now = DateTime.now();
     return year == now.year && month == now.month && day == now.day;
+  }
+
+  /// Removes the time component from the DateTime, keeping only the date.
+  ///
+  /// This method creates a new DateTime instance with only the year, month, and day
+  /// from the original DateTime, setting the time to 00:00:00.
+  ///
+  /// [utc] - If true, creates the DateTime in UTC timezone. If false (default),
+  /// creates the DateTime in the local timezone.
+  ///
+  /// Returns a new DateTime instance representing the same date at 00:00:00.
+  ///
+  /// Example:
+  /// ```dart
+  /// var dateTime = DateTime(2023, 7, 25, 14, 30, 45);
+  /// var dateOnly = dateTime.removeTime(); // 2023-07-25 00:00:00.000
+  /// var dateOnlyUtc = dateTime.removeTime(true); // 2023-07-25 00:00:00.000Z
+  /// ```
+  DateTime removeTime([bool utc = false]) {
+    if (utc) return DateTime.utc(year, month, day);
+    return DateTime(year, month, day);
   }
 }

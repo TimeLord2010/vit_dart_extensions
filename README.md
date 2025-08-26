@@ -3,16 +3,16 @@ A Dart package providing a wide range of extension methods for various data type
 # Summary
 
 1. [Extensions](#extensions)
-    - [DateTime](#datetime)
-    - [Directory](#directory)
-    - [Duration](#duration)
-    - [double](#double)
-    - [File](#file)
-    - [int](#int)
-    - [Iterable](#iterable)
-    - [List](#file)
-    - [Map](#mapstring-dynamic)
-    - [String](#string)
+   - [DateTime](#datetime)
+   - [Directory](#directory)
+   - [Duration](#duration)
+   - [double](#double)
+   - [File](#file)
+   - [int](#int)
+   - [Iterable](#iterable)
+   - [List](#file)
+   - [Map](#mapstring-dynamic)
+   - [String](#string)
 
 # Extensions
 
@@ -30,10 +30,10 @@ String dateAndTime = dt.formatAsReadable(); // "30/01/2023 13:22"
 String dateOnly = dt.formatAsReadable(false); // "30/01/2023"
 ```
 
-### fromEuropean
+### fromDDMMYYYY
 
 ```dart
-static DateTime fromEuropean(String value);
+static DateTime fromDDMMYYYY(String value);
 ```
 
 Parses a string in European date format (DD/MM/YYYY).
@@ -49,6 +49,7 @@ If no parameters are provided, it defaults to the Unix epoch
 (January 1, 1970) for the start and the current DateTime for the end.
 
 Example:
+
 ```dart
 var randomDt = DateTimeExt.pickRandom();
 ```
@@ -64,10 +65,35 @@ Checks if the current DateTime instance represents today's date.
 Returns `true` if the DateTime's year, month, and day exactly match the current date, otherwise returns `false`.
 
 Example:
+
 ```dart
 DateTime.now().isToday; // Always returns true
 DateTime(2023, 7, 25).isToday; // Returns true if today is July 25, 2023
 DateTime(2023, 7, 24).isToday; // Returns false
+```
+
+### removeTime
+
+```dart
+DateTime removeTime([bool utc = false]);
+```
+
+Removes the time component from the DateTime, keeping only the date.
+
+This method creates a new DateTime instance with only the year, month, and day
+from the original DateTime, setting the time to 00:00:00.
+
+[utc] - If true, creates the DateTime in UTC timezone. If false (default),
+creates the DateTime in the local timezone.
+
+Returns a new DateTime instance representing the same date at 00:00:00.
+
+Example:
+
+```dart
+var dateTime = DateTime(2023, 7, 25, 14, 30, 45);
+var dateOnly = dateTime.removeTime(); // 2023-07-25 00:00:00.000
+var dateOnlyUtc = dateTime.removeTime(true); // 2023-07-25 00:00:00.000Z
 ```
 
 ## Directory
@@ -107,6 +133,7 @@ The output is the representation of the closest greatest unit of time
 in the duration along with the second greatest unit.
 
 Examples:
+
 ```dart
 Duration(days: 1, hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '1d 3h'
 Duration(hours: 3, minutes: 23, seconds: 5, milliseconds: 101).toReadable(); // '3h 23min'
@@ -173,6 +200,7 @@ Converts the int (assumed to be the number of bytes), to a readable string form.
 ## Iterable
 
 ### avg
+
 ```dart
 double get avg;
 ```
@@ -195,6 +223,7 @@ a single chunk containing all elements will be returned.
 The method throws a [ArgumentError] if [size] is less than or equal to 0.
 
 Example:
+
 ```dart
 final numbers = [1, 2, 3, 4, 5, 6];
 final chunks = numbers.chunck(2);
@@ -214,14 +243,16 @@ Returns the first element for which [filter] returns true. If no element satisfi
 the [filter], returns `null`.
 
 - Parameters:
-    - [filter]: A function that takes an item of type [T] as an argument and
-      returns a [bool]. It should return `true` for an item that matches the
-      criteria and `false` otherwise.
+
+  - [filter]: A function that takes an item of type [T] as an argument and
+    returns a [bool]. It should return `true` for an item that matches the
+    criteria and `false` otherwise.
 
 - Returns: The first element of type [T] that satisfies the provided [filter]
-    function. Returns `null` if no element satisfies the [filter] function.
+  function. Returns `null` if no element satisfies the [filter] function.
 
 Example:
+
 ```dart
 List<String> names = ['Bob', 'Alice', 'Tom'];
 String? firstNameStartingWithA = names.firstWhereOrNull((name) => name.startsWith('A'));
@@ -239,6 +270,7 @@ Creates a new list from the iterable by interspersing a given [separator] betwee
 If the iterable contains less than two elements, the original iterable is returned as a list.
 
 Example:
+
 ```dart
 final letters = ['a', 'b', 'c'];
 final spacedLetters = letters.separatedBy('-');
@@ -254,6 +286,7 @@ T pickRandom();
 Picks an item at a random index.
 
 Example:
+
 ```dart
 Iterable<String> names = ['Bob', 'Alice', 'Tom', 'Fiona'];
 names.pickRandom(); // 'Bob' or 'Alice' or 'Tom' or 'Fiona'
@@ -271,6 +304,7 @@ This function creates a new list and does not change the original
 iterable.
 
 Example:
+
 ```dart
 Iterable<String> names = ['Bob', 'Alice', 'Tom', 'Fiona'];
 Iterable<String> filtered = names.removeIndices({1,3}); // ('Bob', 'Tom')
@@ -293,6 +327,7 @@ Returns:
 A string representing the JSON-encoded version of the list, formatted with indentation for easier reading.
 
 Example:
+
 ```dart
 final list = [{'name': 'John Doe', 'age': 30}, {'name': 'Jane Doe', 'age': 27}];
 print(list.prettyJSON);
@@ -359,6 +394,7 @@ DateTime? tryGetDateTime(String key);
 ```
 
 Reads a value from the Map and returns it as a DateTime, if possible.
+
 - If the value is a DateTime, then this value is returned;
 - If the value is a String, then it tries to parse it;
 - If none of the criteria before is meet, null is returned.
@@ -375,6 +411,7 @@ if (isoString != null) {
 ```
 
 Which becomes more simpler:
+
 ```dart
 Map<String, dynamic> json = { ... };
 DateTime? dt = json.tryGetDateTime('timestamp')
@@ -387,6 +424,7 @@ DateTime getDateTime(String key);
 ```
 
 Reads the value from the given key, and process it to returns a DateTime.
+
 - If the value is a DateTime, then this value is returned;
 - If the value is a String, then it tries to parse it;
 - If none of the criteria before is meet, a FormatException is thrown.
@@ -419,6 +457,7 @@ This method uses [tryGetDouble] to attempt conversion. If the conversion
 fails and the value is `null`, it throws a [FormatException].
 
 Example:
+
 ```dart
 var map = {'a': 1, 'b': '2.5', 'c': 'three'};
 print(map.getDouble('a')); // 1.0
@@ -437,6 +476,7 @@ it to a double.
 
 The method checks the type of the value associated with the [key] in the
 following order:
+
 - If the value is already a double, it is returned as is.
 - If the value is an int, it is converted to double and returned.
 - If the value is a String, the method tries to parse it as a double.
@@ -444,6 +484,7 @@ following order:
 If the value cannot be converted to double, the method returns `null`.
 
 Example:
+
 ```dart
 var map = {'a': 1, 'b': '2.5', 'c': 'three'};
 print(map.tryGetDouble('a')); // 1.0
@@ -467,6 +508,7 @@ type [T].
 If the value is not a list, the method returns a empty list.
 
 Example:
+
 ```dart
 var map = {
   'ints': [1, 2, 3],
@@ -474,9 +516,9 @@ var map = {
   'mixed': [null, '2', 3.0],
   'notArray': 12,
 };
-print(map.tryGetList<int>('ints', (x) => x as int?)); // [1, 2, 3]
-print(map.tryGetList<String>('strings', (x) => x as String?)); // ['a', 'b', 'c']
-print(map.tryGetList<double>('mixed', (x) => double.tryParse(x.toString()))); // [2.0, 3.0]
+print(map.getList<int>('ints', (x) => x as int?)); // [1, 2, 3]
+print(map.getList<String>('strings', (x) => x as String?)); // ['a', 'b', 'c']
+print(map.getList<double>('mixed', (x) => double.tryParse(x.toString()))); // [2.0, 3.0]
 print(map.getList<String>('notArray', (x) => x as String)); // []
 ```
 
@@ -521,6 +563,7 @@ Converts strings in ISO-8601 or DD/MM/(YYYY|YY)[ HH:mm] formats to a DateTime ob
 The returned DateTime object does not take hours, minutes, or seconds into account.
 
 Returns `null` if the string cannot be parsed into a valid date.
+
 ```dart
 String isoDateString = "2022-01-01";
 String brDateString = "01/01/2022";
@@ -551,9 +594,7 @@ bool get isEmail;
 
 Checks if the current string is a valid email address.
 
-
 Returns `true` if the string matches the email pattern, otherwise `false`.
-
 
 ```dart
 String email = "example@example.com";
@@ -575,6 +616,7 @@ uppercase accented letters commonly used in the Brazilian Portuguese
 language, such as Á, À, Â, Ã, É, Ê, Í, Ó, Ô, Õ, Ú, and Ç.
 
 Example:
+
 ```dart
 String text1 = 'Hello world';
 print(text1.hasUpperCase); // Output: true
@@ -596,6 +638,7 @@ lowercase accented letters commonly used in the Brazilian Portuguese
 language, such as á, à, â, ã, é, ê, í, ó, ô, õ, ú, and ç.
 
 Example:
+
 ```dart
 String text1 = 'Hello world';
 print(text1.hasLowerCase); // Output: true
@@ -613,6 +656,7 @@ bool get hasNumber;
 Checks if the string contains at least one digit.
 
 Example:
+
 ```dart
 String text1 = 'Hello123';
 print(text1.hasNumber); // Output: true
@@ -630,9 +674,10 @@ bool get hasSymbol;
 Checks if the string contains at least one special symbol.
 
 This getter looks for common special symbols such as !, @, #, $, %, ^,
-&, *, (, ), ,, ., ?, ", :, {, }, |, <, and >.
+&, \*, (, ), ,, ., ?, ", :, {, }, |, <, and >.
 
 Example:
+
 ```dart
 String text1 = 'Hello@World';
 print(text1.hasSymbol); // Output: true
@@ -651,6 +696,7 @@ Checks if the length of the string is between the specified minimum and
 maximum values, inclusive.
 
 Parameters:
+
 - `min`: The minimum length of the string.
 - `max`: The maximum length of the string.
 
@@ -658,6 +704,7 @@ Returns `true` if the length of the string is within the specified range,
 otherwise returns `false`.
 
 Example:
+
 ```dart
 String text = 'Hello';
 print(text.hasLengthBetween(3, 6)); // Output: true
@@ -676,13 +723,12 @@ String getInitials({
 
 Returns the initials of each word of a string.
 
-
 This function takes a string and returns its initials, up to a specified
 number of initials. By default, it returns the first two initials without
 any separator.
 
-
 Examples:
+
 ```dart
 var name = 'John Doe';
 print(name.getInitials()); // 'JD'
@@ -691,11 +737,11 @@ print(name.getInitials(joinString: '.')); // 'J.D'
 ```
 
 Parameters:
-- `initialsCount` (int): The maximum number of initials to return.
-    Defaults to 2.
-- `joinString` (String): The string to use to join the initials.
-    Defaults to '' (no separator).
 
+- `initialsCount` (int): The maximum number of initials to return.
+  Defaults to 2.
+- `joinString` (String): The string to use to join the initials.
+  Defaults to '' (no separator).
 
 Returns:
 A string containing the initials.
@@ -711,6 +757,7 @@ capitalized and the remainder of the word is in lowercase, except for
 words specified by the [wordIgnorer] function.
 
 Example:
+
 ```dart
 'hello world'.toTitleCase(); // 'Hello World'
 'hora de sair'.toTitleCase((word) => word == 'de'); // 'Hora de Sair'
@@ -728,8 +775,10 @@ variations.
 This is useful for sorting lists based on a string.
 
 Here are what is done:
+
 - Converts all characters to lower case;
 - Remove accentuation from characters;
 
 Example:
+
 - "Açucar" -> "acucar"

@@ -1,3 +1,8 @@
+# 4.0.0
+
+- BREAKING: `DateTime.fromEuropean` is now called "fromDDMMYYYY".
+- Fixed linting problem when importing `TimeUnit`.
+
 # 3.1.0
 
 - Feat: Added `isToday` getter to DateTime extensions to check if a DateTime represents the current date.
@@ -5,7 +10,6 @@
 # 3.0.1
 
 - Fix: `String.toSimple` now correctly normalizes and removes accent marks from characters such as "â" and "î".
-
 
 ## 3.0.0
 

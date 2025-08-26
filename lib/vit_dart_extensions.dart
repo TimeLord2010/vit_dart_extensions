@@ -4,6 +4,7 @@ library;
 // prevent file and directory extensions to be default exported and causing
 // web build to crash.
 
+export 'src/data/index.dart';
 export 'src/extensions/date_time.dart';
 export 'src/extensions/double.dart';
 export 'src/extensions/duration.dart';
