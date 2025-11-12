@@ -1,3 +1,7 @@
+# 4.0.1
+
+- Minor: `Map.tryGetDateTime` now is optimized to not try to convert empty strings into DateTime objects.
+
 # 4.0.0
 
 - BREAKING: `DateTime.fromEuropean` is now called "fromDDMMYYYY".

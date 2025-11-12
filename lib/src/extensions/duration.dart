@@ -1,4 +1,4 @@
-import 'package:vit_dart_extensions/src/data/enums/time_unit.dart';
+import '../data/enums/time_unit.dart';
 
 extension DurationExt on Duration {
   /// Converts the duration to a readable string format.

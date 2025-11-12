@@ -24,7 +24,7 @@ extension MapStringDynamicExtension on Map<String, dynamic> {
     dynamic v = this[key];
     if (v == null) return null;
     if (v is DateTime) return v;
-    if (v is String) {
+    if (v is String && v.isNotEmpty) {
       return DateTime.tryParse(v);
     }
     return null;
