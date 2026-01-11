@@ -1,3 +1,7 @@
+# 4.1.0
+
+- Feat: Added `isNullOrEmpty` getter to String extensions.
+
 # 4.0.1
 
 - Minor: `Map.tryGetDateTime` now is optimized to not try to convert empty strings into DateTime objects.

@@ -782,3 +782,24 @@ Here are what is done:
 Example:
 
 - "Açucar" -> "acucar"
+
+### isNullOrEmpty
+
+```dart
+bool get isNullOrEmpty;
+```
+
+Checks if this string is either null or empty.
+
+Returns `true` if the string is null or its length is zero,
+otherwise returns `false`.
+
+```dart
+String? nullString;
+String? emptyString = "";
+String? nonNullString = "hello";
+
+print(nullString.isNullOrEmpty); // Outputs: true
+print(emptyString.isNullOrEmpty); // Outputs: true
+print(nonNullString.isNullOrEmpty); // Outputs: false
+```

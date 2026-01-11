@@ -255,3 +255,23 @@ extension StringExtension on String {
     return parts.length - 1;
   }
 }
+
+extension NullableStringExtension on String? {
+  /// Checks if this string is either null or empty.
+  ///
+  /// Returns `true` if the string is null or its length is zero,
+  /// otherwise returns `false`.
+  ///
+  /// ```dart
+  /// String? nullString;
+  /// String? emptyString = "";
+  /// String? nonNullString = "hello";
+  ///
+  /// print(nullString.isNullOrEmpty); // Outputs: true
+  /// print(emptyString.isNullOrEmpty); // Outputs: true
+  /// print(nonNullString.isNullOrEmpty); // Outputs: false
+  /// ```
+  bool get isNullOrEmpty {
+    return this == null || this!.isEmpty;
+  }
+}
