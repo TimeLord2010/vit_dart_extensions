@@ -1,3 +1,7 @@
+# 4.2.0
+
+- Feat: Added `isSameDay` method to DateTime extensions to check if two DateTime instances have the same year, month, and day.
+
 # 4.1.0
 
 - Feat: Added `isNullOrEmpty` getter to String extensions.

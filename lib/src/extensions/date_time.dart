@@ -124,6 +124,29 @@ extension DateTimeExt on DateTime {
     return year == now.year && month == now.month && day == now.day;
   }
 
+  /// Checks if this DateTime has the same year, month, and day as another DateTime.
+  ///
+  /// This method ignores the time component (hours, minutes, seconds, milliseconds)
+  /// and only compares the date portion of both DateTime instances.
+  ///
+  /// [other] - The DateTime instance to compare with.
+  ///
+  /// Returns `true` if both DateTime instances have the same year, month, and day,
+  /// otherwise returns `false`.
+  ///
+  /// Example:
+  /// ```dart
+  /// var date1 = DateTime(2023, 7, 25, 10, 30);
+  /// var date2 = DateTime(2023, 7, 25, 14, 45);
+  /// date1.isSameDay(date2); // Returns true
+  ///
+  /// var date3 = DateTime(2023, 7, 26);
+  /// date1.isSameDay(date3); // Returns false
+  /// ```
+  bool isSameDay(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+
   /// Removes the time component from the DateTime, keeping only the date.
   ///
   /// This method creates a new DateTime instance with only the year, month, and day
